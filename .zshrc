@@ -51,7 +51,7 @@ ZSH_THEME="jonathan"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm history-substring-search)
+plugins=(git npm history-substring-search notify)
 
 source $ZSH/oh-my-zsh.sh
 # User configuration
@@ -82,6 +82,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
 autoload -U compinit   
 compinit -D    
 autoload colors && colors   
@@ -133,6 +137,10 @@ setopt ZLE
 setopt MULTIBYTE
 setopt NUMERIC_GLOB_SORT
 
+alias am= '&& aplay ~/Music/shanson.wav'
+alias shr='sudo reboot now'
+alias out='pastebinit'
+alias phpr="sudo /etc/init.d/apache2 restart"
 alias cpaste="ls /tmp/ccopy.* | sed 's|/tmp/ccopy.||' | xargs -I % mv /tmp/ccopy.% ./%"
 alias shn="sudo shutdown -h now"
 alias mv='nocorrect mv -iv'
@@ -163,6 +171,10 @@ alias -s {avi,mpeg,mpg,mov,m2v,flv}="nohup totem"
 alias -s {ogg,mp3,wav,m3u,pls}="nohup totem"
 alias -s {jpg,jpeg,png,gif,tif,tiff,bmp}="nohup eog"
 
+zstyle ':notify:*' notifier ~/bin/my-notifier
+zstyle ':notify:*' error
+zstyle ':notify:*' success-title
+zstyle ':notify:*' activate-terminal yes
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
@@ -221,3 +233,6 @@ zstyle ':completion:*:*:*:users' ignored-patterns adm apache bin daemon games gd
 
                                                    function dialogrun; { rm -rf $(dialog --separate-output --checklist file 100 100 100 $(for l in $(ls -A); do echo "$l" "$(test -d $l && echo "dir" || echo "file")" 0; done) --stdout); clear  }
                                                    zle -N dialogrun
+
+export NVM_DIR="/home/serii/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
