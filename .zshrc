@@ -138,6 +138,7 @@ setopt MULTIBYTE
 setopt NUMERIC_GLOB_SORT
 
 alias am= '&& aplay ~/Music/shanson.wav'
+alias o='xdg-open'
 alias shr='sudo reboot now'
 alias out='pastebinit'
 alias phpr="sudo /etc/init.d/apache2 restart"
